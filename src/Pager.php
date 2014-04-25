@@ -89,15 +89,6 @@ class Pager {
 	   'jump_size' => 1, // when you click on prev/next, how many pages are jumped forward or backward?
 	   'per_page' => 25,
 	);
-		
-	// Controls how many pagination links are shown
-	private $link_cnt = 10; 
-
-	// Controls how many pages are flipped forward/backwards when the prev/next links are clicked
-	private $jump_size = 1;
-	
-	// If not defined, this is the default number of links per page
-	private $default_per_page = 25;
 	
 	// Contains all placeholders passed to the outerTpl
 	public static $properties = array(
@@ -113,7 +104,7 @@ class Pager {
 	 * @return string
 	 */
 	private static function _parse_firstTpl() {
-		if (static::$properties['offset'] > 0) {
+		if (self::$properties['offset'] > 0) {
 			return self::_parse(static::$tpls['firstTpl'], array('offset'=> 0, 'page_number'=> 1 ));
 		} 
         return '';
@@ -126,9 +117,9 @@ class Pager {
 	 * @return string
 	 */
 	private static function _parse_lastTpl() {
-		$page_number = static::$properties['page_count'];
-		$offset = self::page_to_offset($page_number, static::$properties['per_page']);
-		if (static::$properties['current_page'] < static::$properties['page_count']) {
+		$page_number = self::$properties['page_count'];
+		$offset = self::page_to_offset($page_number, self::$properties['per_page']);
+		if (self::$properties['current_page'] < self::$properties['page_count']) {
 			return static::_parse(static::$tpls['lastTpl'], array(
 				'offset'=> $offset, 
 				'page_number'=> $page_number
@@ -143,10 +134,10 @@ class Pager {
 	 */
 	private static function _parse_pagination_links() {
 		$output = '';
-		for ( $page = static::$properties['lowest_visible_page']; $page <= static::$properties['highest_visible_page']; $page++ ) {
-			$offset = self::page_to_offset( $page, static::$properties['per_page']);
+		for ( $page = self::$properties['lowest_visible_page']; $page <= self::$properties['highest_visible_page']; $page++ ) {
+			$offset = self::page_to_offset( $page, self::$properties['per_page']);
 
-			if ( $page == static::$properties['current_page'] ) {
+			if ( $page == self::$properties['current_page'] ) {
 				$output .= static::_parse( static::$tpls['currentPageTpl'], array('offset'=> $offset, 'page_number'=> $page));
 			} else {
 				$output .= static::_parse(static::$tpls['pageTpl'], array('offset'=> $offset, 'page_number'=> $page));
@@ -162,9 +153,9 @@ class Pager {
 	 * @return string
 	 */
 	private static function _parse_nextTpl() {
-		$page_number = self::_get_next_page( static::$properties['current_page'], static::$properties['page_count'] );
-		$offset = self::page_to_offset( $page_number, static::$properties['per_page'] );
-		if ( static::$properties['current_page'] < static::$properties['page_count'] ) {
+		$page_number = self::_get_next_page( self::$properties['current_page'], self::$properties['page_count'] );
+		$offset = self::page_to_offset( $page_number, self::$properties['per_page'] );
+		if ( self::$properties['current_page'] < self::$properties['page_count'] ) {
 			return static::_parse(static::$tpls['nextTpl'], array('offset'=> $offset, 'page_number'=> $page_number));
 		} 
         return '';
@@ -176,9 +167,9 @@ class Pager {
 	 * @return string
 	 */
 	private static function _parse_prevTpl() {
-		$page_number = self::_get_prev_page( static::$properties['current_page'], static::$properties['page_count'] );
-		$offset = self::page_to_offset( $page_number, static::$properties['per_page'] );
-		if (static::$properties['offset'] > 0) {
+		$page_number = self::_get_prev_page( self::$properties['current_page'], self::$properties['page_count'] );
+		$offset = self::page_to_offset( $page_number, self::$properties['per_page'] );
+		if (self::$properties['offset'] > 0) {
 			return static::_parse( static::$tpls['prevTpl'], array('offset'=> $offset, 'page_number'=> $page_number) );
 		}
 	}
@@ -247,7 +238,7 @@ class Pager {
 	 * @return integer
 	 */
 	private static function _get_next_page($current_pg, $total_pgs) {
-		$next_page = $current_pg + static::$config['jump_size'];
+		$next_page = $current_pg + self::$config['jump_size'];
 		if ($next_page > $total_pgs) {
 			return $total_pgs;
 		} 
@@ -263,7 +254,7 @@ class Pager {
 	 * @return integer
 	 */
 	private static function _get_prev_page($current_pg, $total_pgs) {
-		$prev_page = $current_pg - static::$config['jump_size'];
+		$prev_page = $current_pg - self::$config['jump_size'];
 		if ($prev_page < 1) {
 			return 1;
 		} 
@@ -294,7 +285,7 @@ class Pager {
 	 * convert an offset number to a page number
 	 *
 	 * @param integer $offset
-	 * @param integer $per_page (optional) defaults to the set static::$properties['per_page']
+	 * @param integer $per_page (optional) defaults to the set self::$properties['per_page']
 	 * @return integer
 	 */
 	public static function offset_to_page($offset, $per_page=null) {
@@ -303,7 +294,7 @@ class Pager {
 			$per_page = (int) $per_page;
 		}
 		else {
-			$per_page = static::$properties['per_page'];
+			$per_page = self::$properties['per_page'];
 		}
 		if (is_numeric($per_page) && $per_page > 0) {
 			return (floor($offset / $per_page)) + 1;
@@ -326,7 +317,7 @@ class Pager {
 			$per_page = (int) $per_page;
 		}
 		else {
-			$per_page = static::$properties['per_page'];
+			$per_page = self::$properties['per_page'];
 		}
 		if (is_numeric($page) && $page > 1) {
 			return ($page - 1) * $per_page;
@@ -346,57 +337,48 @@ class Pager {
 	 * @param string $base_url
 	 * @return string	html used for pagination (formatted links)
 	 */
-	public static function links(int $record_count, int $per_page, $base_url='?') {
-
-//		$record_count = (int) $record_count;
+	public static function links(int $per_page, int $record_count=1000, int $offset=0,$base_url='?') {
 
 		// No point in doing pagination if there aren't enough records
-		if ( empty($record_count)) {
+		if ($record_count <= $per_page) {
 			return '';
 		}
+        self::$properties['per_page'] = $per_page;
+		self::$properties['page_count'] = ceil($record_count / self::$properties['per_page']);
+		self::$properties['current_page'] = self::offset_to_page( self::$properties['offset'], self::$properties['per_page'] );
 
-		// Pagination is not necessary if you are on the first page and the record count
-		// is less than the results per page.
-		if ( ($record_count <= static::$properties['per_page']) && static::$properties['offset'] == 0 ) {
-			return ' ';
-		}
-
-		static::$properties['page_count'] = ceil($record_count / static::$properties['per_page']);
-
-		static::$properties['current_page'] = self::offset_to_page( static::$properties['offset'], static::$properties['per_page'] );
-
-		static::$properties['lowest_visible_page'] = $this->_get_lowest_visible_page(
-			static::$properties['current_page']
-			, static::$config['link_cnt']
-			, static::$properties['page_count']
+		self::$properties['lowest_visible_page'] = self::_get_lowest_visible_page(
+			self::$properties['current_page']
+			, self::$config['link_cnt']
+			, self::$properties['page_count']
 		);
 
-		static::$properties['highest_visible_page'] = $this->_get_highest_visible_page (
-			static::$properties['current_page']
-			, static::$config['link_cnt']
-			, static::$properties['page_count']
+		self::$properties['highest_visible_page'] = self::_get_highest_visible_page (
+			self::$properties['current_page']
+			, self::$config['link_cnt']
+			, self::$properties['page_count']
 		);
 
-		static::$parameters['first_record'] = static::$properties['offset'] + 1;
+		static::$parameters['first_record'] = self::$properties['offset'] + 1;
 
-		if ( static::$properties['offset'] + static::$properties['per_page'] >= $record_count) {
-			$this->last_record = $record_count;
+		if ( self::$properties['offset'] + self::$properties['per_page'] >= $record_count) {
+			self::$properties['last_record'] = $record_count;
 		}
 		else {
-			$this->last_record = static::$properties['offset'] + static::$properties['per_page'];
+			self::$properties['last_record'] = self::$properties['offset'] + self::$properties['per_page'];
 		}
 
 		// We need keys from config
-		static::$properties['record_count'] = $record_count;
+		self::$properties['record_count'] = $record_count;
 
-		static::$properties['content'] = static::_parse_firstTpl();
-		static::$properties['content'] .= static::_parse_prevTpl();
-		static::$properties['content'] .= static::_parse_pagination_links();
-		static::$properties['content'] .= static::_parse_nextTpl();
-		static::$properties['content'] .= static::_parse_lastTpl();
-		$first_pass = static::_parse(static::$tpls['outerTpl'], static::$properties);
+		self::$properties['content'] = static::_parse_firstTpl();
+		self::$properties['content'] .= static::_parse_prevTpl();
+		self::$properties['content'] .= static::_parse_pagination_links();
+		self::$properties['content'] .= static::_parse_nextTpl();
+		self::$properties['content'] .= static::_parse_lastTpl();
+		$first_pass = static::_parse(static::$tpls['outerTpl'], self::$properties);
 		
-		return static::_parse($first_pass, static::$properties);
+		return static::_parse($first_pass, self::$properties);
 	}
 
 	//------------------------------------------------------------------------------
@@ -414,7 +396,7 @@ class Pager {
 			$base_url = $base_url . '?';
 		}
 
-		static::$properties['base_url'] = $base_url;
+		self::$properties['base_url'] = $base_url;
 	}
 
 	//------------------------------------------------------------------------------
@@ -431,7 +413,7 @@ class Pager {
 	public static function set_jump_size($pgs) {
 		$pgs = (int) $pgs;
 		if ($pgs > 0) {
-			static::$config['jump_size'] = $pgs;	
+			self::$config['jump_size'] = $pgs;	
 		}
 		else {
 			throw new Exception ('set_jump_size() requires an integer greater than 0');
@@ -455,7 +437,7 @@ class Pager {
 	public static function set_link_cnt($cnt) {
 		$cnt = (int) $cnt;
 		if ($cnt > 0) {
-			static::$config['link_cnt'] = $cnt;
+			self::$config['link_cnt'] = $cnt;
 		}
 		else {
 			throw new Exception('set_link_cnt() requires an integer greater than 0');
@@ -472,10 +454,10 @@ class Pager {
 	public static function set_offset($offset) {
 		$offset = (int) $offset;
 		if ($offset >= 0 ) {
-			static::$properties['offset'] = $offset;
+			self::$properties['offset'] = $offset;
 		}
 		else {
-			static::$properties['offset'] = 0;
+			self::$properties['offset'] = 0;
 		}
 	}
 
@@ -489,7 +471,7 @@ class Pager {
 	public function set_per_page($per_page) {
 		$per_page = (int) $per_page;
 		if ($per_page > 0 ) {
-			static::$properties['per_page'] = $per_page;
+			self::$properties['per_page'] = $per_page;
 		}
 		else {
             throw new Exception("set_per_page() requires an integer greater than zero.");
@@ -508,7 +490,7 @@ class Pager {
 		}
 		if (in_array($tpl, array('firstTpl','lastTpl','prevTpl','nextTpl','currentPageTpl',
 			'pageTpl','outerTpl'))) {
-			$this->$tpl = $content;
+			self::$tpls[$tpl] = $content;
 		}
 		else {
 			throw new Exception ('Unknown tpl ' . strip_tags($tpl));
@@ -528,7 +510,7 @@ class Pager {
 			$tpls = array_merge(array('firstTpl'=>'','lastTpl'=>'','prevTpl'=>'',
 			'nextTpl'=>'','currentPageTpl'=>'','pageTpl'=>'','outerTpl'=>''), $tpls);
 			foreach($tpls as $tpl => $v) {
-				$this->setTpl($tpl,$v);
+				self::setTpl($tpl,$v);
 			}
 		}
 		else {

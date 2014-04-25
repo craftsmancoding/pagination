@@ -14,6 +14,8 @@ and you see the need to flip through pages of the records using links that might
 That's what we're creating here.  It may surprise you, but to create pagination links, the only things you
 truly need are:
 
+* how many records you want to show per page
+* an offset from the start
 * the count of the total records available 
 * the base URL that controls the offset.
 
@@ -34,7 +36,9 @@ So you don't like our HTML?  That's Ok.
 
 ### link_cnt ###
 
-#### jump_size ####
+How many links are 
+
+### jump_size ###
 
 Controls how many pages are flipped forwards/backwards when the prev/next links are clicked. With a value of 1, this operates like a book -- flip forward or back exactly one page at a time. Giant leaps are possible e.g. if you display 10 links at a time and you flip 10 pages forward, e.g. from displaying pages 11 - 20 to 21 - 30, etc.
 
