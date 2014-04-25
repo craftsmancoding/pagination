@@ -58,10 +58,10 @@ If the current page is 3, the templates at work are the following:
                         |
                         +-------------------- outerTpl                        
 
-* *firstTpl* : contains the link back to the very first page.
-* *prevTpl* : contains the link back to a previous page (usually the page right before, but this is controlled by the "jump_size" config).
-* *pageTpl* : formats a link to a specific page (a page that is not currently active).
-* *currentPageTpl* : formats the number representing the currently active page.
-* *nextTpl* : contains the link to an upcoming page (usually the page right after the current one, but this is controlled by the "jump_size" config).
-* *lastTpl* : contains the link to the final page of results.
-* *outerTpl* : wraps the final output. This template is a good place for summary info.
+* **firstTpl** : contains the link back to the very first page.
+* **prevTpl** : contains the link back to a previous page (usually the page right before, but this is controlled by the "jump_size" config).
+* **pageTpl** : formats a link to a specific page (a page that is not currently active).
+* **currentPageTpl** : formats the number representing the currently active page.
+* **nextTpl** : contains the link to an upcoming page (usually the page right after the current one, but this is controlled by the "jump_size" config).
+* **lastTpl** : contains the link to the final page of results.
+* **outerTpl** : wraps the final output. This template is a good place for summary info.

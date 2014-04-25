@@ -85,7 +85,7 @@ class Pager {
 	 * Configuration for settings that don't change often.
 	 */
 	private static $config = array(
-	   'link_cnt' => 10,
+	   'link_cnt' => 10, // how many links are shown total
 	   'jump_size' => 1, // when you click on prev/next, how many pages are jumped forward or backward?
 	   'per_page' => 25,
 	);
@@ -367,13 +367,13 @@ class Pager {
 
 		static::$properties['lowest_visible_page'] = $this->_get_lowest_visible_page(
 			static::$properties['current_page']
-			, static::$parameters['link_cnt']
+			, static::$config['link_cnt']
 			, static::$properties['page_count']
 		);
 
 		static::$properties['highest_visible_page'] = $this->_get_highest_visible_page (
 			static::$properties['current_page']
-			, static::$parameters['link_cnt']
+			, static::$config['link_cnt']
 			, static::$properties['page_count']
 		);
 
@@ -455,7 +455,7 @@ class Pager {
 	public static function set_link_cnt($cnt) {
 		$cnt = (int) $cnt;
 		if ($cnt > 0) {
-			static::$parameters['link_cnt'] = $cnt;
+			static::$config['link_cnt'] = $cnt;
 		}
 		else {
 			throw new Exception('set_link_cnt() requires an integer greater than 0');
