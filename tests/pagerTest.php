@@ -51,4 +51,13 @@ class pagerTest extends PHPUnit_Framework_TestCase {
         $expected = '<div id="pagination"><span>1</span><a href="?&offset=25" >2</a><a href="?&offset=50" >3</a><a href="?&offset=25" >Next &rsaquo;</a><a href="?&offset=75" >Last &raquo;</a></div>';
         $this->assertEquals(normalize_html($actual), normalize_html($expected));
     }
+    
+    public function testBaseUrl() {
+    
+        $actual = Pagination\Pager::links(100)
+            ->setBaseUrl('http://mysite.com/index.php?page=something');
+
+        $expected = '<div id="pagination"><span>1</span><a href="http://mysite.com/index.php?page=something&offset=25" >2</a><a href="http://mysite.com/index.php?page=something&offset=50" >3</a><a href="http://mysite.com/index.php?page=something&offset=25" >Next &rsaquo;</a><a href="http://mysite.com/index.php?page=something&offset=75" >Last &raquo;</a></div>';
+        $this->assertEquals(normalize_html($actual), normalize_html($expected));    
+    }
 }

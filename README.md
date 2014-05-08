@@ -1,6 +1,6 @@
 # Pagination
 
-A simple pagination library for the common folks: this generates links for flipping through pages of records. Now includes DOCUMENTATION!  Although other libraries may have vastly superior features, this humble library attempts to make due with examples and explanations.  If you are a super genius who grok's source-code with one glance, then you have many other packages to choose from.
+A simple pagination library for the common folks: this generates links for flipping through pages of records, now including documentation!  Although other libraries may have vastly superior features, this humble library attempts to make due with examples and explanations.  If you are a super genius who grok's source-code with one glance then those other libraries work just fine for you.
 
 ## Overview
 
@@ -33,16 +33,42 @@ Example:
 
     <?php
     $cnt = count_my_results();
-    print Pagination\Pager::links($cnt);
+    $offset = (int) (isset($_GET['offset'])) ? $_GET['offset'] : 0;
+    print Pagination\Pager::links($cnt,$offset);
     ?>
+    
+Or, more namespacey in your class somewhere:
+
+    <?php
+    use Pagination;
+    class Classy {
+        public function functional() {
+            $cnt = $this->count_my_results();
+            $offset = (int) (isset($_GET['offset'])) ? $_GET['offset'] : 0;
+            return Pager::links($cnt,$offset);
+        }
+    }
+    ?>
+
+Example with a Base URL:
+
+    <?php
+        print Pagination\Pager::links(100)
+            ->setBaseUrl('http://yoursite.com/index.php?page=something');
+    ?>
+
+This is critical if your page's URL relies on GET parameters -- because the pagination links also rely on URL parameters, you need to set the base URL so the links know which parameters stay fixed and constant between page flips.
+
 
 ### What you gotta Do
 
-**Count the results**: how you count the available results depends entirely on your particular framework or functions.  Most database drivers will include options for returning a count of the number of rows that matched the given query.
+Just a reminder/recap...
 
-**Read the Offset**: in order to have the links dynamically adjust as you flip through the result set, you need to pass the offset value to the Pager::links() function.  This should work in conjunction with whatever parameter your code is using to offset the raw database query.
+**Count the results**: how you count the available results depends entirely on your particular framework or functions.  Most database drivers will include options for returning a count of the number of rows that matched the given query.  Because this library does not try to be omniscient and tie into your underlying framework or drivers, you must throw it a bone and tell the Pager::links() function how many records you're dealing with.
 
-**Get the URL of the current page**: how this is done depends on your particular framework or application. 
+**Read the Offset**: in order to have the links dynamically adjust as you flip through the result set, you need to pass the offset value to the Pager::links() function.  This should work in conjunction with whatever parameter your code is using to offset the raw database query. 
+
+**Get the URL of the current page**: how this is done depends on your particular framework or application.  Use the **setBaseUrl()** if you need to customize this -- this is important if the page needing pagination has a parameter in its URL.
 
 
 
