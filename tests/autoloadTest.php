@@ -21,6 +21,6 @@ class autoloadTest extends PHPUnit_Framework_TestCase {
         
     public function testLoad() {
         $P = new Pagination\Pager();
-        $this->assertTrue(is_object($F), 'Pager.'); 
+        $this->assertTrue(is_object($P), 'Pager.'); 
     }
 }

@@ -1,8 +1,6 @@
 # Pagination
 
-A simple pagination library for the common folks: this generates links for flipping through pages of records. A hot new feature: DOCUMENTATION!  Although other libraries may have vastly superior and amazing features, this library features actual documentation with real examples and explanations.  If you are a super genius who grok's source-code with one glance, then you have many other packages to choose from, but this is for the rest of you.
-
-We folks here believe in the simple practice of demonstrating how to use what we've written.  
+A simple pagination library for the common folks: this generates links for flipping through pages of records. Now includes DOCUMENTATION!  Although other libraries may have vastly superior features, this humble library attempts to make due with examples and explanations.  If you are a super genius who grok's source-code with one glance, then you have many other packages to choose from.
 
 ## Overview
 
@@ -11,39 +9,101 @@ and you see the need to flip through pages of the records using links that might
 
     << First < Prev.  1 2 3 4 5  Next >  Last >>
 
-That's what we're creating here.  It may surprise you, but to create pagination links, the only things you
-truly need are:
+That's what we're creating here: pagination links with GET parameters to control the current page.  It may surprise you, but to create pagination links, the only things you truly need are:
 
-* how many records you want to show per page
-* an offset from the start
 * the count of the total records available 
-* the base URL that controls the offset.
+* how many records you want to show per page
+* an offset from the start (i.e. which page are you starting on)
+* the URL of the current page.
 
-Other stuff is optional for fine-tuning, but that's it.  Let's take a closer look at how to make this work.
+Other stuff is optional for fine-tuning, but that's it.  Some pagination classes are bound with the controller and model (e.g. Laravel's) so you don't need to supply them as much information, but because this is a stand-alone class, you have to do things a bit more manually.
+
+Let's take a closer look at how to make this work.
 
 -----------------------------
 
 ## Paginating Records
 
-Cut to the chase.  How to paginate records?
+Cut to the chase.  How to paginate records?  
 
-## Customize Templates
 
-So you don't like our HTML?  That's Ok.
+**Syntax** `links( integer $record_count, integer $offset=0, integer $per_page=25, string $base_url=null)`
+
+Example:
+
+    <?php
+    $cnt = count_my_results();
+    print Pagination\Pager::links($cnt);
+    ?>
+
+### What you gotta Do
+
+**Count the results**: how you count the available results depends entirely on your particular framework or functions.  Most database drivers will include options for returning a count of the number of rows that matched the given query.
+
+**Read the Offset**: in order to have the links dynamically adjust as you flip through the result set, you need to pass the offset value to the Pager::links() function.  This should work in conjunction with whatever parameter your code is using to offset the raw database query.
+
+**Get the URL of the current page**: how this is done depends on your particular framework or application. 
+
+
 
 --------------
 ## Config
 
+There are a couple configuration items that control the output behavior.  To set either option, use the setConfig() method and reference the key name with a new value, e.g.
+
+    Pagination\Pager::links(100)->setConfig('link_cnt', 3)
+
 ### link_cnt ###
 
-How many links are 
+How many page links are shown?  For example 3 might look something like this:
+
+    << First < Prev 1 2 3 Next > Last >>
+
+Whereas 12 might generate a set of links like this:
+
+    << First < Prev 1 2 3 4 5 6 7 8 9 10 11 12 Next > Last >>
+
+The default is 10.
 
 ### jump_size ###
 
 Controls how many pages are flipped forwards/backwards when the prev/next links are clicked. With a value of 1, this operates like a book -- flip forward or back exactly one page at a time. Giant leaps are possible e.g. if you display 10 links at a time and you flip 10 pages forward, e.g. from displaying pages 11 - 20 to 21 - 30, etc.
 
 
+
 --------------
+
+## Customize Templates
+
+So you don't like our HTML?  That's Ok, you can set custom templates for each part of the final result.
+
+For fine tuning, you can use the **setTpl()** to change templates one at a time.
+
+    <?php
+        print Pagination\Pager::links(100)
+            ->setTpl('outer','<div id="my_pagination" class="custom_footer_block">[+content+]</div>');
+    ?>
+
+See the "Templates Used" section for a list of all available templates.
+
+If you want to go completely custom, you can use the **setTpls()** method to set *all* templates:
+
+    <?php
+        print Pagination\Pager::links(100)
+            ->setTpls(
+                array(
+                    'first' => '',
+                    'last' => '',
+                    'prev' => '',
+                    'next' => '',
+                    'current' => '',
+                    'page' => '',
+                    'outer' => '',
+                )
+            );
+    ?>
+
+Take a look at the "Templates Used" section to familiarize yourself where each component gets used in the final output.
 
 ## Templates Used
 
@@ -51,21 +111,21 @@ If the current page is 3, the templates at work are the following:
     	
     	<<First <<Prev 1 2 3 Next>> Last>>
     	\_____/ \____/ ^ ^ ^ \____/ \____/
-    	   |       |   | | |    |      +----- lastTpl
-    	   |       |   | | |    +------------ nextTpl
-    	   |       |   | | +----------------- currentPageTpl
-    	   |       |   +-+------------------- pageTpl
-    	   |       +------------------------- prevTpl
-    	   +--------------------------------- firstTpl
+    	   |       |   | | |    |      +----- last
+    	   |       |   | | |    +------------ next
+    	   |       |   | | +----------------- current
+    	   |       |   +-+------------------- page
+    	   |       +------------------------- prev
+    	   +--------------------------------- first
     
     \_________________________________________________/
                         |
-                        +-------------------- outerTpl                        
+                        +-------------------- outer
 
-* **firstTpl** : contains the link back to the very first page.
-* **prevTpl** : contains the link back to a previous page (usually the page right before, but this is controlled by the "jump_size" config).
-* **pageTpl** : formats a link to a specific page (a page that is not currently active).
-* **currentPageTpl** : formats the number representing the currently active page.
-* **nextTpl** : contains the link to an upcoming page (usually the page right after the current one, but this is controlled by the "jump_size" config).
-* **lastTpl** : contains the link to the final page of results.
-* **outerTpl** : wraps the final output. This template is a good place for summary info.
+* **first** : contains the link back to the very first page.
+* **prev** : contains the link back to a previous page (usually the page right before, but this is controlled by the "jump_size" config).
+* **page** : formats a link to a specific page (a page that is not currently active).
+* **current** : formats the number representing the currently active page.
+* **next** : contains the link to an upcoming page (usually the page right after the current one, but this is controlled by the "jump_size" config).
+* **last** : contains the link to the final page of results.
+* **outer** : wraps the final output. This template is a good place for summary info.
