@@ -439,11 +439,13 @@ class Pager {
 	}
 	
 	//------------------------------------------------------------------------------
-	/**
-	 * Set a config setting.
-	 * @param string $key name of the setting
-	 * @param integer $value the new value.
-	 */
+    /**
+     * Set a config setting.
+     * @param string $key name of the setting
+     * @param integer $value the new value.
+     * @throws Exception
+     * @return object
+     */
 	public static function setConfig($key, $value) {
 		$value = (int) $value;
 		if (!array_key_exists($key, self::$config)) {
@@ -458,14 +460,16 @@ class Pager {
 	
 
 	//------------------------------------------------------------------------------
-	/**
-	 * Set a single formatting tpl.
-	 * @param string $tpl one of the named tpls
-	 * @param string $content
-	 */
+    /**
+     * Set a single formatting tpl.
+     * @param string $tpl one of the named tpls
+     * @param string $content
+     * @throws Exception
+     * @return object
+     */
 	public static function setTpl($tpl, $content) {
 		if (!is_scalar($content)) {
-			throw new Exeption("Content for $tpl tpl must be a string.");
+			throw new Exception("Content for $tpl tpl must be a string.");
 		}
 		if (in_array($tpl, array('first','last','prev','next','current',
 			'page','outer'))) {
@@ -482,8 +486,9 @@ class Pager {
 	 * Set all the tpls in one go by supplying an array.  You must supply 
 	 * a *complete* set of tpls to this function! A missing key is equivalent to 
 	 * supplying an empty string.
-	 *
-	 * @param array $tpls, associative array with keys 
+	 * @throws Exception
+	 * @param array $tpls, associative array with keys
+     * @return object
 	 */
 	public static function setTpls($tpls) {
 		if (is_array($tpls)) {
@@ -502,6 +507,7 @@ class Pager {
 	/**
 	 * Set the tpls to a particular style.
 	 * @param string $style identifies a key in the $styles array.
+     * @return object
 	 */
 	public static function style($style) {
         if (array_key_exists($style, self::$styles)) {
