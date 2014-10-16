@@ -84,7 +84,20 @@ class Pager {
     				Page [+current_page+] of [+page_count+]<br/>
     				Displaying records [+first_record+] thru [+last_record+] of [+record_count+]
     			</div>',
+    	),
+    	'form' => array(
+            'first' => '<a href="[+base_url+]&offset=[+offset+]" [+extra+]>&laquo; First-Form</a>  ',
+            'last' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>Last-Form &raquo;</a>',
+            'prev' => '<a href="[+base_url+]&offset=[+offset+]" [+extra+]>&lsaquo; Prev.</a> ',
+            'next' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>Next &rsaquo;</a>',
+            'current' => ' <span>[+page_number+]</span> ',
+            'page' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>[+page_number+]</a> ',
+            'outer' => '<div id="pagination">FORM [+content+]<br/>
+    				Page [+current_page+] of [+page_count+]<br/>
+    				Displaying records [+first_record+] thru [+last_record+] of [+record_count+]
+    			</div>',
     	)
+
 	);
 	
 	/**
@@ -510,6 +523,7 @@ class Pager {
      * @return object
 	 */
 	public static function style($style) {
+
         if (array_key_exists($style, self::$styles)) {
             self::$tpls = self::$styles[$style];
         }
