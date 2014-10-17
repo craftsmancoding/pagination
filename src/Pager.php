@@ -91,7 +91,7 @@ class Pager {
             'prev' => '<a href="[+base_url+]&offset=[+offset+]" [+extra+]>&laquo; Previous</a> ',
             'next' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>Next &raquo;</a>',
             'current' => '<em class="current">[+page_number+]</em>',
-            'page' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>[+page_number+]</a> ',
+            'page' => '<a href="[+base_url+]&offset=[+offset+]" [+extra+]>[+page_number+]</a> ',
             'outer' => '<div class="raw_pagination">[+content+]<div class="page-count">Page 1 of 4</div><div class="page-display">Displaying records 1 thru 25 of 100</div></div>',
     	),
     	'digg' => array(
@@ -508,7 +508,7 @@ class Pager {
 			throw new Exception("Content for $tpl tpl must be a string.");
 		}
 		if (in_array($tpl, array('first','last','prev','next','current',
-			'page','outer'))) {
+			'page','css','outer'))) {
 			self::$tpls[$tpl] = $content;
 		}
 		else {
@@ -529,7 +529,7 @@ class Pager {
 	public static function setTpls($tpls) {
 		if (is_array($tpls)) {
 			$tpls = array_merge(array('first'=>'','last'=>'','prev'=>'',
-			'next'=>'','current'=>'','page'=>'','outer'=>''), $tpls);
+			'next'=>'','current'=>'','page'=>'','css'=>'','outer'=>''), $tpls);
 			foreach($tpls as $tpl => $v) {
 				self::setTpl($tpl,$v);
 			}
