@@ -85,19 +85,42 @@ class Pager {
     				Displaying records [+first_record+] thru [+last_record+] of [+record_count+]
     			</div>',
     	),
-    	'form' => array(
-            'first' => '<a href="[+base_url+]&offset=[+offset+]" [+extra+]>&laquo; First-Form</a>  ',
-            'last' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>Last-Form &raquo;</a>',
-            'prev' => '<a href="[+base_url+]&offset=[+offset+]" [+extra+]>&lsaquo; Prev.</a> ',
-            'next' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>Next &rsaquo;</a>',
-            'current' => ' <span>[+page_number+]</span> ',
+    	'raw' => array(
+            'first' => '<a href="[+base_url+]&offset=[+offset+]" [+extra+]>First</a>',
+            'last' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>Last</a>',
+            'prev' => '<a href="[+base_url+]&offset=[+offset+]" [+extra+]>&laquo; Previous</a> ',
+            'next' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>Next &raquo;</a>',
+            'current' => '<em class="current">[+page_number+]</em>',
             'page' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>[+page_number+]</a> ',
-            'outer' => '<div id="pagination">FORM [+content+]<br/>
-    				Page [+current_page+] of [+page_count+]<br/>
-    				Displaying records [+first_record+] thru [+last_record+] of [+record_count+]
-    			</div>',
-    	)
-
+            'outer' => '<div class="raw_pagination">[+content+]<div class="page-count">Page 1 of 4</div><div class="page-display">Displaying records 1 thru 25 of 100</div></div>',
+    	),
+    	'digg' => array(
+            'first' => '<a href="[+base_url+]&offset=[+offset+]" [+extra+]>First</a>',
+            'last' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>Last</a>',
+            'prev' => '<a href="[+base_url+]&offset=[+offset+]" [+extra+]>&laquo; Previous</a> ',
+            'next' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>Next &raquo;</a>',
+            'current' => '<em class="current">[+page_number+]</em>',
+            'page' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>[+page_number+]</a> ',
+            'outer' => '<div class="digg_pagination">[+content+]<div class="clear">&nbsp;</div><div class="page-count">Page 1 of 4</div><div class="page-display">Displaying records 1 thru 25 of 100</div></div>',
+    	),
+    	'apple' => array(
+            'first' => '<a href="[+base_url+]&offset=[+offset+]" [+extra+]>First</a>',
+            'last' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>Last</a>',
+            'prev' => '<a href="[+base_url+]&offset=[+offset+]" [+extra+]>&laquo; Previous</a> ',
+            'next' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>Next &raquo;</a>',
+            'current' => '<em class="current">[+page_number+]</em>',
+            'page' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>[+page_number+]</a> ',
+            'outer' => '<div class="apple_pagination">[+content+]<div class="page-count">Page 1 of 4</div><div class="page-display">Displaying records 1 thru 25 of 100</div></div>',
+    	),
+    	'flickr' => array(
+            'first' => '<a href="[+base_url+]&offset=[+offset+]" [+extra+]>First</a>',
+            'last' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>Last</a>',
+            'prev' => '<a href="[+base_url+]&offset=[+offset+]" [+extra+]>&laquo; Previous</a> ',
+            'next' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>Next &raquo;</a>',
+            'current' => '<em class="current">[+page_number+]</em>',
+            'page' => ' <a href="[+base_url+]&offset=[+offset+]" [+extra+]>[+page_number+]</a> ',
+            'outer' => '<div class="flickr_pagination">[+content+]<div class="page-count">Page 1 of 4</div><div class="page-display">Displaying records 1 thru 25 of 100</div></div>',
+    	),
 	);
 	
 	/**

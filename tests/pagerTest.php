@@ -60,4 +60,30 @@ class pagerTest extends PHPUnit_Framework_TestCase {
         $expected = '<div id="pagination"><span>1</span><a href="http://mysite.com/index.php?page=something&offset=25" >2</a><a href="http://mysite.com/index.php?page=something&offset=50" >3</a><a href="http://mysite.com/index.php?page=something&offset=25" >Next &rsaquo;</a><a href="http://mysite.com/index.php?page=something&offset=75" >Last &raquo;</a></div>';
         $this->assertEquals(normalize_html($actual), normalize_html($expected));    
     }
+
+    public function testRawStyles() {
+        Pagination\Pager::style('raw');
+        $actual = Pagination\Pager::links(100);
+        $expected = '<div class="raw_pagination"><em class="current">1</em><a href="http://mysite.com/index.php?page=something&offset=25" >2</a><a href="http://mysite.com/index.php?page=something&offset=50" >3</a><a href="http://mysite.com/index.php?page=something&offset=25" >Next &raquo;</a><a href="http://mysite.com/index.php?page=something&offset=75" >Last</a><div class="page-count">Page 1 of 4</div><div class="page-display">Displaying records 1 thru 25 of 100</div></div>';
+        $this->assertEquals(normalize_html($actual), normalize_html($expected));
+    }
+
+    public function testDiggStyles() {
+        Pagination\Pager::style('digg');
+        $actual = Pagination\Pager::links(100);
+        $expected = '<div class="digg_pagination"><em class="current">1</em><a href="http://mysite.com/index.php?page=something&offset=25" >2</a><a href="http://mysite.com/index.php?page=something&offset=50" >3</a><a href="http://mysite.com/index.php?page=something&offset=25" >Next &raquo;</a><a href="http://mysite.com/index.php?page=something&offset=75" >Last</a><div class="clear">&nbsp;</div><div class="page-count">Page 1 of 4</div><div class="page-display">Displaying records 1 thru 25 of 100</div></div>';
+        $this->assertEquals(normalize_html($actual), normalize_html($expected));
+    }
+    public function testAppleStyles() {
+        Pagination\Pager::style('apple');
+        $actual = Pagination\Pager::links(100);
+        $expected = '<div class="apple_pagination"><em class="current">1</em><a href="http://mysite.com/index.php?page=something&offset=25" >2</a><a href="http://mysite.com/index.php?page=something&offset=50" >3</a><a href="http://mysite.com/index.php?page=something&offset=25" >Next &raquo;</a><a href="http://mysite.com/index.php?page=something&offset=75" >Last</a><div class="page-count">Page 1 of 4</div><div class="page-display">Displaying records 1 thru 25 of 100</div></div>';
+        $this->assertEquals(normalize_html($actual), normalize_html($expected));
+    }
+    public function testFlickrStyles() {
+        Pagination\Pager::style('flickr');
+        $actual = Pagination\Pager::links(100);
+        $expected = '<div class="flickr_pagination"><em class="current">1</em><a href="http://mysite.com/index.php?page=something&offset=25" >2</a><a href="http://mysite.com/index.php?page=something&offset=50" >3</a><a href="http://mysite.com/index.php?page=something&offset=25" >Next &raquo;</a><a href="http://mysite.com/index.php?page=something&offset=75" >Last</a><div class="page-count">Page 1 of 4</div><div class="page-display">Displaying records 1 thru 25 of 100</div></div>';
+        $this->assertEquals(normalize_html($actual), normalize_html($expected));
+    }
 }
