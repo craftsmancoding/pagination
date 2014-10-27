@@ -113,9 +113,9 @@ styles, use the style() method:
     
 ### default 
 
-Short and sweet with no embedded styles.
+Short and sweet with no embedded styles.  Start here if you want to use your own CSS.
 
-![Default style](https://github.com/craftsmancoding/pagination/blob/master/screenshots/apple.jpg "Default")
+![Default style](https://github.com/craftsmancoding/pagination/blob/master/screenshots/default.jpg "Default")
 
 ### apple 
 
