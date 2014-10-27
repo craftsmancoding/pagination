@@ -418,7 +418,7 @@ class Pager {
 	 * INPUT: (int) the # of records you're paginating.
 	 * OUTPUT: formatted links
 	 *
-	 * @param integer $record_count
+	 * @param integer $record_count (required)
 	 * @param integer $per_page -- how many records to show on each page
 	 * @param string $base_url
 	 * @return string	html used for pagination (formatted links)
