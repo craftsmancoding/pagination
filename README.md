@@ -111,10 +111,19 @@ styles, use the style() method:
             ->style('flickr');
     ?>
     
-* default : short and sweet with no embedded styles.
-* digg : 
-* apple : 
-* flickr :
+### default 
+
+Short and sweet with no embedded styles.
+
+### digg
+
+### apple 
+
+![Apple style](https://github.com/craftsmancoding/pagination/blob/master/screenshots/apple.jpg "Apple")
+
+
+
+### flickr
 
 
 
