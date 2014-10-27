@@ -61,12 +61,12 @@ class pagerTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(normalize_html($actual), normalize_html($expected));    
     }
 
-    public function testRawStyles() {
-        Pagination\Pager::style('raw');
-        $actual = Pagination\Pager::links(100);
-        $expected = '<div class="raw_pagination"><em class="current">1</em><a href="http://mysite.com/index.php?page=something&offset=25" >2</a><a href="http://mysite.com/index.php?page=something&offset=50" >3</a><a href="http://mysite.com/index.php?page=something&offset=25" >Next &raquo;</a><a href="http://mysite.com/index.php?page=something&offset=75" >Last</a><div class="page-count">Page 1 of 4</div><div class="page-display">Displaying records 1 thru 25 of 100</div></div>';
-        $this->assertEquals(normalize_html($actual), normalize_html($expected));
-    }
+//    public function testRawStyles() {
+//        Pagination\Pager::style('raw');
+//        $actual = Pagination\Pager::links(100);
+//        $expected = '<div class="raw_pagination"><em class="current">1</em><a href="http://mysite.com/index.php?page=something&offset=25" >2</a><a href="http://mysite.com/index.php?page=something&offset=50" >3</a><a href="http://mysite.com/index.php?page=something&offset=25" >Next &raquo;</a><a href="http://mysite.com/index.php?page=something&offset=75" >Last</a><div class="page-count">Page 1 of 4</div><div class="page-display">Displaying records 1 thru 25 of 100</div></div>';
+//        $this->assertEquals(normalize_html($actual), normalize_html($expected));
+//    }
 
     public function testDiggStyles() {
         Pagination\Pager::style('digg');

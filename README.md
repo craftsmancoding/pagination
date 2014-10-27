@@ -99,6 +99,27 @@ Controls how many pages are flipped forwards/backwards when the prev/next links 
 
 --------------
 
+## Styles
+
+This library ships with a few pagination link styles to get you started.  These use inline styles for modularity.  If 
+you would like to mark up the components yourself, then start with the "default" style.  To use any of the built-in 
+styles, use the style() method:
+
+
+    <?php
+        print Pagination\Pager::links(100)
+            ->style('flickr');
+    ?>
+    
+* default : short and sweet with no embedded styles.
+* digg : 
+* apple : 
+* flickr :
+
+
+
+--------------
+
 ## Customize Templates
 
 So you don't like our HTML?  That's Ok, you can set custom templates for each part of the final result.
