@@ -115,17 +115,25 @@ styles, use the style() method:
 
 Short and sweet with no embedded styles.
 
-### digg
+![Default style](https://github.com/craftsmancoding/pagination/blob/master/screenshots/apple.jpg "Default")
 
 ### apple 
+
+Tastes like Apple.
 
 ![Apple style](https://github.com/craftsmancoding/pagination/blob/master/screenshots/apple.jpg "Apple")
 
 
+### digg
+
+Dig it.
+
+![Digg style](https://github.com/craftsmancoding/pagination/blob/master/screenshots/digg.jpg "Digg")
+
 
 ### flickr
 
-
+![Flickr style](https://github.com/craftsmancoding/pagination/blob/master/screenshots/flickr.jpg "Flickr")
 
 --------------
 
